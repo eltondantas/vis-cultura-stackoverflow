@@ -1,5 +1,6 @@
 ---
 title: "Comentários e cultura"
+author: "Elton Dantas de Oliveira Mesquita"
 output:
     html_document:
     df_print: paged
@@ -43,9 +44,70 @@ Considerando essa variável, queremos examinar a relação entre ela e o quão h
 
 Faça uma visualização que usa os princípios de eficácia no projeto de visualizações para facilitar as comparações que você acha que são as mais importantes para entendermos esse contexto.
 
+
+```{r}
+data = dados %>%
+        filter(site == "StackOverflow")
+
+data %>%
+    ggplot(aes(x = comentaram_prop,
+               y = log10(PDI),
+               size = usuarios,
+               color = six_regions)) +
+    geom_point()
+
+data %>%
+    ggplot(aes(x = comentaram_prop,
+               y = log10(PDI),
+               size = Internet,
+               color = six_regions)) +
+    geom_point()
+```
+
+Em países cujas proporções de comentários feitos são maiores, suas relações hierárquicas tendem a serem menores. Nestes países também ocorre de o acesso à internet ser mais intenso.
+
+
 ## Outras formas de ver
 
 Em seguida, faça 5 visualizações que usem as mesmas variáveis e também pontos, mas que sejam **menos eficazes** que a que você escolheu acima.
+
+O excesso de informação no mesmo gráfico ou uma customização que não distingue os pontos desfavorecem o entendimento da visualização. Por exemplo:
+
+```{r}
+data %>%
+    ggplot(aes(x = comentaram_prop,
+               y = log10(PDI),
+               size = usuarios,
+               color = Internet,
+               shape = six_regions)) +
+    geom_point()
+```
+
+
+```{r}
+data %>%
+    ggplot(aes(x = comentaram_prop,
+               y = log10(PDI),
+               color = usuarios,
+               alpha = Internet)) +
+    geom_point()
+```
+
+```{r}
+data %>%
+    ggplot(aes(x = comentaram_prop,
+               y = log10(PDI),
+               alpha = usuarios,
+               shape = six_regions)) +
+    geom_point()
+
+data %>%
+    ggplot(aes(x = comentaram_prop,
+               y = log10(PDI),
+               alpha = Internet,
+               shape = six_regions)) +
+    geom_point()
+```
 
 ## Bônus
 
